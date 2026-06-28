@@ -1,4 +1,4 @@
-const supabase = window.supabase.createClient(
+const db = window.supabase.createClient(
   CONFIG.supabaseUrl,
   CONFIG.supabaseAnonKey
 );
@@ -161,7 +161,7 @@ registerForm.addEventListener("submit", async (e) => {
   submitButton.disabled = true;
   submitButton.textContent = "Mengirim...";
 
-  const { error } = await supabase.from("registrations").insert([
+  const { error } = await db.from("registrations").insert([
     {
       full_name: data.fullName,
       nick_name: data.nickName,

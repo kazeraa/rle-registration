@@ -1,4 +1,4 @@
-const supabase = window.supabase.createClient(
+const db = window.supabase.createClient(
   CONFIG.supabaseUrl,
   CONFIG.supabaseAnonKey
 );
