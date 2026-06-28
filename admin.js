@@ -41,7 +41,7 @@ async function showDashboard() {
 }
 
 async function loadRegistrations() {
-  const { data, error } = await supabase
+  const { data, error } = await db
     .from("registrations")
     .select("*")
     .order("created_at", { ascending: false });
