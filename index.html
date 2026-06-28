@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PT. Rans Logistik Europe</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Loading -->
+  <div id="loader" class="loader">
+    <div class="loader-card glass">
+      <img id="loaderLogo" class="loader-logo" alt="RLE Logo" />
+      <h2>PT. RLE</h2>
+      <p>Rans Logistik Europe</p>
+      <div class="loading-bar">
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background -->
+  <div class="aurora"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <main class="page">
+    <!-- Landing -->
+    <section id="landing" class="hero glass">
+      <img id="mainLogo" class="logo" alt="RLE Logo" />
+
+      <span class="badge">Official Truckers of Europe 3 Community</span>
+
+      <h1 id="companyName">PT. Rans Logistik Europe</h1>
+      <p id="slogan" class="subtitle">More Than A Convoy, We Are Family.</p>
+
+      <button class="primary-btn" onclick="showForm()">
+        Daftar Sekarang
+      </button>
+
+      <a href="admin.html" class="admin-link">Admin Panel</a>
+    </section>
+
+    <!-- Form -->
+    <section id="formSection" class="form-card glass hidden">
+      <div class="form-top">
+        <button class="back-home" onclick="backHome()">←</button>
+        <div>
+          <h2>Form Pendaftaran</h2>
+          <p>Isi data dengan benar ya boskuh.</p>
+        </div>
+      </div>
+
+      <div class="progress">
+        <div id="progressFill"></div>
+      </div>
+
+      <form id="registerForm">
+        <!-- Step 1 -->
+        <div class="step active">
+          <h3>Informasi Dasar</h3>
+
+          <input required name="fullName" placeholder="Nama Lengkap" />
+          <input required name="nickName" placeholder="Nama Panggilan" />
+          <input required name="age" type="number" placeholder="Umur" />
+
+          <button type="button" class="primary-btn full" onclick="nextStep()">
+            Lanjut
+          </button>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+          <h3>Kontak</h3>
+
+          <input required name="whatsapp" placeholder="Nomor WhatsApp" />
+          <input name="email" type="email" placeholder="Email (Opsional)" />
+          <input required name="city" placeholder="Kota Asal" />
+
+          <div class="btn-row">
+            <button type="button" class="secondary-btn" onclick="prevStep()">Kembali</button>
+            <button type="button" class="primary-btn" onclick="nextStep()">Lanjut</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+          <h3>Data TOE3</h3>
+
+          <input required name="toeNick" placeholder="Nickname TOE3" />
+          <input required name="toeUid" placeholder="UID / ID TOE3" />
+          <textarea required name="reason" placeholder="Alasan ingin bergabung"></textarea>
+
+          <div class="btn-row">
+            <button type="button" class="secondary-btn" onclick="prevStep()">Kembali</button>
+            <button type="button" class="primary-btn" onclick="showReview()">Lanjut</button>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step">
+          <h3>Konfirmasi Data</h3>
+
+          <div id="reviewBox" class="review-box"></div>
+
+          <div class="btn-row">
+            <button type="button" class="secondary-btn" onclick="prevStep()">Kembali</button>
+            <button type="submit" class="primary-btn">Kirim</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Success -->
+    <section id="successBox" class="success-card glass hidden">
+      <h2>✓ Pendaftaran Berhasil</h2>
+      <p>
+        Terima kasih telah mendaftar di
+        <b>PT. Rans Logistik Europe</b>.
+      </p>
+      <p>Estimasi verifikasi: <b>1×24 jam</b>.</p>
+
+      <button class="primary-btn" onclick="location.reload()">
+        Kembali
+      </button>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Admin Panel - PT. RLE</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="aurora"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <main class="admin-page">
+    <!-- Login -->
+    <section id="loginBox" class="admin-login glass">
+      <img id="adminLogo" class="logo" alt="RLE Logo" />
+
+      <h1>Admin Panel</h1>
+      <p>Masukkan secret key untuk membuka dashboard.</p>
+
+      <input id="secretInput" type="password" placeholder="Secret Key" />
+
+      <button class="primary-btn full" onclick="loginAdmin()">
+        Login
+      </button>
+
+      <a href="index.html" class="admin-link">← Kembali ke Form</a>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="dashboard hidden">
+      <div class="dashboard-header glass">
+        <div>
+          <h2>PT. Rans Logistik Europe</h2>
+          <p>Admin Dashboard</p>
+        </div>
+
+        <button class="secondary-btn" onclick="logoutAdmin()">
+          Logout
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card glass">
+          <small>Total</small>
+          <h3 id="totalCount">0</h3>
+        </div>
+
+        <div class="stat-card glass">
+          <small>Pending</small>
+          <h3 id="pendingCount">0</h3>
+        </div>
+
+        <div class="stat-card glass">
+          <small>Approved</small>
+          <h3 id="approvedCount">0</h3>
+        </div>
+
+        <div class="stat-card glass">
+          <small>Rejected</small>
+          <h3 id="rejectedCount">0</h3>
+        </div>
+      </div>
+
+      <div class="toolbar glass">
+        <input id="searchInput" placeholder="Cari nama / WA / nickname..." oninput="renderRegistrations()" />
+
+        <select id="filterStatus" onchange="renderRegistrations()">
+          <option value="all">Semua Status</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div id="registrationsList" class="registrations-list"></div>
+    </section>
+  </main>
+
+  <!-- Modal Detail -->
+  <div id="detailModal" class="modal hidden">
+    <div class="modal-content glass">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <h2>Detail Pendaftar</h2>
+      <div id="detailContent"></div>
+
+      <div class="modal-actions">
+        <button class="primary-btn" onclick="approveCurrent()">
+          Approve
+        </button>
+
+        <button class="secondary-btn" onclick="rejectCurrent()">
+          Reject
+        </button>
+
+        <button class="danger-btn" onclick="deleteCurrent()">
+          Hapus
+        </button>
+      </div>
+
+      <a id="whatsappBtn" class="whatsapp-btn hidden" target="_blank">
+        Kirim WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
