@@ -170,7 +170,19 @@ async function updateStatus(status) {
 }
 
 async function approveCurrent() {
-  await updateStatus("approved");
+  if (!currentRegistration) return;
+
+  const { error } = await db
+    .from("registrations")
+    .update({ status: "approved" })
+    .eq("id", currentRegistration.id);
+
+  if (error) {
+    alert("Gagal approve: " + error.message);
+    return;
+  }
+
+  currentRegistration.status = "approved";
 
   const message = `Halo ${currentRegistration.full_name} 👋
 
@@ -184,11 +196,17 @@ Selamat bergabung dan semoga betah bersama keluarga besar PT. RLE 🚛✨
 Regards,
 Admin PT. RLE`;
 
-  whatsappBtn.href =
-    `https://wa.me/${currentRegistration.whatsapp}?text=${encodeURIComponent(message)}`;
+  const waLink = `https://api.whatsapp.com/send?phone=${currentRegistration.whatsapp}&text=${encodeURIComponent(message)}`;
 
-  whatsappBtn.textContent = "Kirim WhatsApp Approve";
-  whatsappBtn.classList.remove("hidden");
+  alert("Berhasil approve. Klik tombol WhatsApp yang muncul di bawah.");
+
+  detailContent.insertAdjacentHTML("beforeend", `
+    <a href="${waLink}" target="_blank" class="whatsapp-btn" style="display:block;margin-top:16px;">
+      📩 Kirim WhatsApp Sekarang
+    </a>
+  `);
+
+  await loadRegistrations();
 }
 
 async function rejectCurrent() {
