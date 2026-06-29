@@ -193,7 +193,7 @@ ${CONFIG.waGroupLink}
 
 Selamat bergabung dan semoga betah bersama keluarga besar PT. RLE 🚛✨
 
-Regards,
+Fahrizal,
 Admin PT. RLE`;
 
   const waLink = `https://api.whatsapp.com/send?phone=${currentRegistration.whatsapp}&text=${encodeURIComponent(message)}`;
