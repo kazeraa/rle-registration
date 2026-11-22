@@ -34,18 +34,32 @@
   <main class="page">
     <!-- Landing -->
     <section id="landing" class="hero glass">
-      <img id="mainLogo" class="logo" alt="RLE Logo" />
+      <div class="hero-copy">
+        <div class="hero-brand">
+          <img id="mainLogo" class="logo" alt="RLE Logo" />
+          <span>RLE <i></i> COMMUNITY</span>
+        </div>
 
-      <span class="badge">Official Truckers of Europe 3 Community</span>
+        <span class="badge">Official Truckers of Europe 3 Community</span>
 
-      <h1 id="companyName">PT. Rans Logistik Europe</h1>
-      <p id="slogan" class="subtitle">More Than A Convoy, We Are Family.</p>
+        <h1 id="companyName">PT. Rans Logistik Europe</h1>
+        <p id="slogan" class="subtitle">More Than A Convoy, We Are Family.</p>
 
-      <button class="primary-btn" onclick="showForm()">
-        Daftar Sekarang
-      </button>
+        <div class="hero-actions">
+          <button class="primary-btn" onclick="showForm()">
+            Gabung komunitas <span aria-hidden="true"></span>
+          </button>
+          <a href="admin.html" class="admin-link">Admin Panel <span aria-hidden="true"></span></a>
+        </div>
 
-      <a href="admin.html" class="admin-link">Admin Panel</a>
+        <p class="hero-note">Satu tujuan. Banyak cerita di jalan.</p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <span class="art-caption">DRIVE TOGETHER</span>
+        <span class="art-monogram">RLE</span>
+        <span class="art-route"><i></i> TRUCKERS OF EUROPE 3</span>
+      </div>
     </section>
 
     <!-- Form -->
@@ -95,7 +109,7 @@
           <h3>Data TOE3</h3>
 
           <input required name="toeNick" placeholder="Nickname TOE3" />
-          <input required name="toeUid" placeholder="UID / ID TOE3 (Opsional)" />
+          <input required name="usnDC" placeholder="Username Discord" />
           <textarea required name="reason" placeholder="Alasan ingin bergabung"></textarea>
 
           <div class="btn-row">

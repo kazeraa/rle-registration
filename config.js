@@ -1,7 +1,7 @@
 const CONFIG = {
   companyName: "PT. Rans Logistik Europe",
   slogan: "More Than A Convoy, We Are Family.",
-  logoUrl: "https://files.catbox.moe/n9y5ks.jpg",
+  logoUrl: "https://files.catbox.moe/t6csfn.jpeg",
 
   secretKey: "adminrle26",
   waGroupLink: "https://chat.whatsapp.com/FEJmHxbbL0cFAqxdTgeqZ3?s=cl&p=a&ilr=0",
