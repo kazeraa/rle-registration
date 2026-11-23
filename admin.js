@@ -12,7 +12,9 @@ const secretInput = document.getElementById("secretInput");
 const registrationsList = document.getElementById("registrationsList");
 const detailModal = document.getElementById("detailModal");
 const detailContent = document.getElementById("detailContent");
-const whatsappBtn = document.getElementById("whatsappBtn");
+const confirmDeleteModal = document.getElementById("confirmDeleteModal");
+const adminNotification = document.getElementById("adminNotification");
+let notificationTimeout;
 
 document.getElementById("adminLogo").src = CONFIG.logoUrl;
 
@@ -25,8 +27,18 @@ function loginAdmin() {
     localStorage.setItem("rle_admin_login", "true");
     showDashboard();
   } else {
-    alert("Secret key salah boskuh.");
+    showNotification("Secret key salah.", "error");
   }
+}
+
+function showNotification(message, type = "success") {
+  clearTimeout(notificationTimeout);
+  adminNotification.textContent = message;
+  adminNotification.dataset.type = type;
+  adminNotification.classList.remove("hidden");
+  notificationTimeout = setTimeout(() => {
+    adminNotification.classList.add("hidden");
+  }, 5000);
 }
 
 function logoutAdmin() {
@@ -47,7 +59,7 @@ async function loadRegistrations() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    alert("Gagal mengambil data: " + error.message);
+    showNotification("Gagal mengambil data: " + error.message, "error");
     return;
   }
 
@@ -123,9 +135,6 @@ function openDetail(id) {
   currentRegistration = registrations.find((item) => item.id === id);
   if (!currentRegistration) return;
 
-  whatsappBtn.classList.add("hidden");
-  whatsappBtn.removeAttribute("href");
-
   detailContent.innerHTML = `
     <div class="detail-item"><small>Nama Lengkap</small><b>${currentRegistration.full_name}</b></div>
     <div class="detail-item"><small>Nama Panggilan</small><b>${currentRegistration.nick_name}</b></div>
@@ -134,7 +143,7 @@ function openDetail(id) {
     <div class="detail-item"><small>Email</small><b>${currentRegistration.email || "-"}</b></div>
     <div class="detail-item"><small>Kota Asal</small><b>${currentRegistration.city}</b></div>
     <div class="detail-item"><small>Nickname TOE3</small><b>${currentRegistration.toe_nick}</b></div>
-    <div class="detail-item"><small>UID TOE3</small><b>${currentRegistration.toe_uid}</b></div>
+    <div class="detail-item"><small>Username Discord</small><b>${currentRegistration.toe_uid}</b></div>
     <div class="detail-item"><small>Alasan Bergabung</small><b>${currentRegistration.reason}</b></div>
     <div class="detail-item"><small>Status</small><b>${currentRegistration.status}</b></div>
   `;
@@ -147,16 +156,16 @@ function closeModal() {
 }
 
 async function updateStatus(status) {
-  if (!currentRegistration) return;
+  if (!currentRegistration) return false;
 
-  const { error } = await supabase
+  const { error } = await db
     .from("registrations")
     .update({ status })
     .eq("id", currentRegistration.id);
 
   if (error) {
-    alert("Gagal update status: " + error.message);
-    return;
+    showNotification("Gagal update status: " + error.message, "error");
+    return false;
   }
 
   currentRegistration.status = status;
@@ -167,6 +176,7 @@ async function updateStatus(status) {
   updateStats();
   renderRegistrations();
   openDetail(currentRegistration.id);
+  return true;
 }
 
 async function approveCurrent() {
@@ -178,7 +188,7 @@ async function approveCurrent() {
     .eq("id", currentRegistration.id);
 
   if (error) {
-    alert("Gagal approve: " + error.message);
+    showNotification("Gagal approve: " + error.message, "error");
     return;
   }
 
@@ -198,7 +208,7 @@ Admin PT. RLE`;
 
   const waLink = `https://api.whatsapp.com/send?phone=${currentRegistration.whatsapp}&text=${encodeURIComponent(message)}`;
 
-  alert("Berhasil approve. Klik tombol WhatsApp yang muncul di bawah.");
+  showNotification("Berhasil approve. Tombol WhatsApp tersedia di detail pendaftar.");
 
   detailContent.insertAdjacentHTML("beforeend", `
     <a href="${waLink}" target="_blank" class="whatsapp-btn" style="display:block;margin-top:16px;">
@@ -210,37 +220,33 @@ Admin PT. RLE`;
 }
 
 async function rejectCurrent() {
-  await updateStatus("rejected");
+  if (!currentRegistration || !(await updateStatus("rejected"))) return;
 
-  const message = `Halo ${currentRegistration.full_name}.
-
-Mohon maaf, pendaftaran Anda di komunitas PT. Rans Logistik Europe belum dapat kami terima saat ini.
-
-Terima kasih telah mendaftar.
-
-Regards,
-Admin PT. RLE`;
-
-  whatsappBtn.href =
-    `https://wa.me/${currentRegistration.whatsapp}?text=${encodeURIComponent(message)}`;
-
-  whatsappBtn.textContent = "Kirim WhatsApp Reject";
-  whatsappBtn.classList.remove("hidden");
+  showNotification("Pendaftaran berhasil ditolak.");
 }
 
 async function deleteCurrent() {
   if (!currentRegistration) return;
 
-  const yakin = confirm("Yakin mau hapus data ini?");
-  if (!yakin) return;
+  confirmDeleteModal.classList.remove("hidden");
+}
 
-  const { error } = await supabase
+function cancelDelete() {
+  confirmDeleteModal.classList.add("hidden");
+}
+
+async function confirmDelete() {
+  if (!currentRegistration) return;
+
+  const { error } = await db
     .from("registrations")
     .delete()
     .eq("id", currentRegistration.id);
 
+  cancelDelete();
+
   if (error) {
-    alert("Gagal hapus data: " + error.message);
+    showNotification("Gagal hapus data: " + error.message, "error");
     return;
   }
 
@@ -249,4 +255,6 @@ async function deleteCurrent() {
   closeModal();
   updateStats();
   renderRegistrations();
+  currentRegistration = null;
+  showNotification("Data pendaftar berhasil dihapus.");
 }

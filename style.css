@@ -1025,3 +1025,55 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+.admin-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 110;
+  width: min(420px, calc(100vw - 40px));
+  padding: 16px 18px;
+  border: 1px solid rgba(209, 236, 101, 0.28);
+  border-radius: 14px;
+  color: #e8efdb;
+  background: rgba(25, 34, 27, 0.96);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  animation: cardIn 0.25s ease;
+}
+
+.admin-notification[data-type="error"] {
+  border-color: rgba(248, 113, 113, 0.4);
+  color: #fecaca;
+}
+
+.confirm-content {
+  width: min(420px, 100%);
+}
+
+.confirm-content h2 {
+  padding-right: 28px;
+  letter-spacing: -0.04em;
+}
+
+.confirm-message {
+  margin: 12px 0 22px;
+  color: #b6beb5;
+  line-height: 1.6;
+}
+
+.confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.confirm-actions .secondary-btn,
+.confirm-actions .danger-btn {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-weight: 800;
+  cursor: pointer;
+}

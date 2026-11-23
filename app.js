@@ -86,7 +86,7 @@ function getFormData() {
     email: formData.get("email").trim(),
     city: formData.get("city").trim(),
     toeNick: formData.get("toeNick").trim(),
-    toeUid: formData.get("toeUid").trim(),
+    discordUsername: formData.get("usnDC").trim(),
     reason: formData.get("reason").trim()
   };
 }
@@ -128,8 +128,8 @@ function showReview() {
     </div>
 
     <div class="review-item">
-      <small>UID TOE3</small>
-      <b>${data.toeUid}</b>
+      <small>Username Discord</small>
+      <b>${data.discordUsername}</b>
     </div>
   `;
 
@@ -170,7 +170,7 @@ registerForm.addEventListener("submit", async (e) => {
       email: data.email || null,
       city: data.city,
       toe_nick: data.toeNick,
-      toe_uid: data.toeUid,
+      toe_uid: data.discordUsername,
       reason: data.reason,
       status: "pending"
     }

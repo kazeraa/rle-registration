@@ -80,6 +80,8 @@
     </section>
   </main>
 
+  <div id="adminNotification" class="admin-notification hidden" role="status" aria-live="polite"></div>
+
   <!-- Modal Detail -->
   <div id="detailModal" class="modal hidden">
     <div class="modal-content glass">
@@ -101,10 +103,17 @@
           Hapus
         </button>
       </div>
+    </div>
+  </div>
 
-      <a id="whatsappBtn" class="whatsapp-btn hidden" target="_blank">
-        Kirim WhatsApp
-      </a>
+  <div id="confirmDeleteModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmDeleteTitle">
+    <div class="modal-content confirm-content glass">
+      <h2 id="confirmDeleteTitle">Hapus pendaftar?</h2>
+      <p class="confirm-message">Data ini akan dihapus permanen dan tidak bisa dikembalikan.</p>
+      <div class="confirm-actions">
+        <button class="secondary-btn" onclick="cancelDelete()">Batal</button>
+        <button class="danger-btn" onclick="confirmDelete()">Ya, hapus</button>
+      </div>
     </div>
   </div>
 
