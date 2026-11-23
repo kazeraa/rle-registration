@@ -281,6 +281,8 @@ async function approveCurrent() {
 
 Selamat! Pendaftaran Anda di komunitas resmi PT. Rans Logistik Europe telah disetujui.
 
+ID Anggota: ${memberId}
+
 Silakan bergabung melalui grup berikut:
 ${CONFIG.waGroupLink}
 
