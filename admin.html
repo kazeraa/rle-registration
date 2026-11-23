@@ -19,13 +19,14 @@
       <img id="adminLogo" class="logo" alt="RLE Logo" />
 
       <h1>Admin Panel</h1>
-      <p>Masukkan secret key untuk membuka dashboard.</p>
+      <p>Masuk dengan akun Admin atau Manajemen.</p>
 
-      <input id="secretInput" type="password" placeholder="Secret Key" />
+      <form id="loginForm">
+        <input id="emailInput" name="email" type="email" placeholder="Email Admin" autocomplete="username" required />
+        <input id="passwordInput" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
 
-      <button class="primary-btn full" onclick="loginAdmin()">
-        Login
-      </button>
+        <button class="primary-btn full" type="submit">Login</button>
+      </form>
 
       <a href="index.html" class="admin-link">← Kembali ke Form</a>
     </section>

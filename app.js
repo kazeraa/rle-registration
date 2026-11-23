@@ -91,6 +91,16 @@ function getFormData() {
   };
 }
 
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[character]);
+}
+
 function showReview() {
   if (!validateStep()) return;
 
@@ -99,37 +109,37 @@ function showReview() {
   reviewBox.innerHTML = `
     <div class="review-item">
       <small>Nama Lengkap</small>
-      <b>${data.fullName}</b>
+      <b>${escapeHtml(data.fullName)}</b>
     </div>
 
     <div class="review-item">
       <small>Nama Panggilan</small>
-      <b>${data.nickName}</b>
+      <b>${escapeHtml(data.nickName)}</b>
     </div>
 
     <div class="review-item">
       <small>Umur</small>
-      <b>${data.age}</b>
+      <b>${escapeHtml(data.age)}</b>
     </div>
 
     <div class="review-item">
       <small>WhatsApp</small>
-      <b>${data.whatsapp}</b>
+      <b>${escapeHtml(data.whatsapp)}</b>
     </div>
 
     <div class="review-item">
       <small>Kota Asal</small>
-      <b>${data.city}</b>
+      <b>${escapeHtml(data.city)}</b>
     </div>
 
     <div class="review-item">
       <small>Nickname TOE3</small>
-      <b>${data.toeNick}</b>
+      <b>${escapeHtml(data.toeNick)}</b>
     </div>
 
     <div class="review-item">
       <small>Username Discord</small>
-      <b>${data.discordUsername}</b>
+      <b>${escapeHtml(data.discordUsername)}</b>
     </div>
   `;
 
