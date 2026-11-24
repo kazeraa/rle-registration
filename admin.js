@@ -277,14 +277,11 @@ async function approveCurrent() {
   renderRegistrations();
   openDetail(currentRegistration.source_registration_id);
 
-  const message = `Halo ${currentRegistration.full_name} 👋
+  const message = `Halo ${currentRegistration.nick_name} 👋
 
 Selamat! Pendaftaran Anda di komunitas resmi PT. Rans Logistik Europe telah disetujui.
 
 ID Anggota: ${memberId}
-
-Silakan bergabung melalui grup berikut:
-${CONFIG.waGroupLink}
 
 Selamat bergabung dan semoga betah bersama keluarga besar PT. RLE 🚛✨
 
